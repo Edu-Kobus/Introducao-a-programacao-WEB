@@ -1,76 +1,94 @@
 
 /* Criando um programa que calcula a média
-das notas entre os alunos e envia
+das grades entre os students e envia
 mensagem do cálculo da média */
 
 //colocando objeto dentro de um array
-const alunosDaTurmaA = [
+const classA = [
     {
-        nome:"Eduardo",
-        nota: 9.8
+        name:"Eduardo",
+        grade: 9.8
     },
     {
-        nome: "Rafaela",
-        nota: 5
+        name: "Rafaela",
+        grade: 5
     },
     {
-        nome: "Jesus",
-        nota: 10
+        name: "Jesus",
+        grade: 10
     },
     {
-        nome:"Sara",
-        nota: 5
+        name:"Sara",
+        grade: 5
     }
 ]
 
-const alunosDaTurmaB = [
+const classB = [
     {
-        nome:"Mateus",
-        nota: 7
+        name:"Mateus",
+        grade: 7
     },
     {
-        nome: "João",
-        nota: 3
+        name: "João",
+        grade: 3
     },
     {
-        nome: "Simão",
-        nota: 2.5
+        name: "Simão",
+        grade: 2.5
     },
     {
-        nome: 'Saulo',
-        nota: 10
+        name: 'Saulo',
+        grade: 10
     }
 ]
-
 
 // funções e métodos:
 
-function calculaMedia(alunos) {
+function calculateAverage(students) {
 
-    let soma = 0; // deve ficar fora do escopo do for
-    for (let i = 0; i < alunos.length; i++) {
-        soma = soma + alunos[i].nota
+    let sum = 0 // deve ficar fora do escopo do for
+    for (let i = 0; i < students.length; i++) {
+        sum = sum + students[i].grade
     }
     
-    const media = soma / alunos.length //irá somar as notas e dividir pelos alunos
-    return media //irá retornar a media para a função
+    const average = sum / students.length //irá sumr as grades e dividir pelos students
+    
+    return average //irá retornar a average para a função
 }
 
-const media1 = calculaMedia(alunosDaTurmaA) //reaproveita o cálculo da média
-const media2 = calculaMedia(alunosDaTurmaB)
-
-
-function enviaMensagem(media, turma) {
-
-    if (media > 7) {
-        console.log(`A media da turma ${turma} foi de ${media}, Parabéns`)
+function sendMessage(average, turma) {
+    if (average > 7) {
+        console.log(`${turma} average: ${average} congrats!`)
     } else {
-        console.log(`A média da turma ${turma} é menor que 7`)
+        console.log(`${turma} average: ${average}. Is not good.`)
     }
 }
 
-enviaMensagem(media1, 'turmaA') //reaproveitar parametro da variável
-enviaMensagem(media2, 'turmaB')
+function markAsFlunked(student) {
+    student.flunked = false //boolean
+        if (student.grade < 7) {
+            student.flunked = true;
+    }
+}
 
+function sendMessageFlunked(student) {
+    if(student.flunked) {
+        console.log(`${student.name} flunked!`)
+    }
+}
 
+function studentsflunked(students) {
+    for (let student of students) {
+        markAsFlunked(student);
+        sendMessageFlunked(student)
+    }
+}
 
+const average1 = calculateAverage(classA)
+const average2 = calculateAverage(classB)
+
+sendMessage(average1, 'class A')
+sendMessage(average2, 'class B')
+
+studentsflunked(classA)
+studentsflunked(classB)
